@@ -1,12 +1,23 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart' show getTemporaryDirectory;
 import 'package:spotify/core/configs/theme/app_theme.dart';
 import 'package:spotify/presentation/screens/splash/splash_screen.dart';
+import 'package:spotify/presentation/view_models/choose_mode_cubit.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(systemNavigationBarColor: Colors.transparent),
+  );
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory:
+        kIsWeb
+            ? HydratedStorageDirectory.web
+            : HydratedStorageDirectory((await getTemporaryDirectory()).path),
   );
   runApp(const MyApp());
 }
@@ -16,10 +27,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      home: SplashScreen(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => ChooseModeCubit())],
+      child: BlocBuilder<ChooseModeCubit, ThemeMode>(
+        builder: (context, mode) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: mode,
+          home: SplashScreen(),
+        ),
+      )
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/presentation/view_models/choose_mode_cubit.dart';
 import 'package:spotify/presentation/widgets/basic_app_button.dart';
 import 'package:spotify/presentation/widgets/safe_area_bottom_space.dart';
 import 'package:spotify/presentation/widgets/svg_asset.dart';
@@ -33,9 +35,9 @@ class ChooseModeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildThemeIcon(AppImages.moon, "Dark Mode"),
+                  _buildThemeIcon(context, AppImages.moon, "Dark Mode"),
                   const SizedBox(width: 50),
-                  _buildThemeIcon(AppImages.sun, "Light Mode"),
+                  _buildThemeIcon(context, AppImages.sun, "Light Mode"),
                 ],
               ),
               const SizedBox(height: 50),
@@ -69,26 +71,32 @@ class ChooseModeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildThemeIcon(String icon, String title) {
+  Widget _buildThemeIcon(BuildContext context, String icon, String title) {
+    final ThemeMode mode = title == "Light Mode" ? ThemeMode.light : ThemeMode.dark;
     return Column(
       children: [
-        ClipOval(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                color: Color(0xff30393c).withValues(alpha: 0.5),
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: SvgAsset(
-                path: icon,
-                width: 30,
-                height: 30,
-                fit: BoxFit.contain,
-                color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            context.read<ChooseModeCubit>().updateTheme(mode);
+          },
+          child: ClipOval(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                width: 75,
+                height: 75,
+                decoration: BoxDecoration(
+                  color: Color(0xff30393c).withValues(alpha: 0.5),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: SvgAsset(
+                  path: icon,
+                  width: 30,
+                  height: 30,
+                  fit: BoxFit.contain,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
