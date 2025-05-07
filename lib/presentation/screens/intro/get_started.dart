@@ -61,7 +61,7 @@ class GetStarted extends StatelessWidget {
                 },
                 title: "Get Started",
               ),
-              SafeAreaBottomSpace(bottom: 16),
+              SafeAreaBottomSpace(bottom: 32),
             ],
           ),
         ),

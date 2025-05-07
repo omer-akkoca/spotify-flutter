@@ -76,15 +76,17 @@ class ChooseModeScreen extends StatelessWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              padding: EdgeInsets.all(20),
+              width: 75,
+              height: 75,
               decoration: BoxDecoration(
                 color: Color(0xff30393c).withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
+              alignment: Alignment.center,
               child: SvgAsset(
                 path: icon,
-                width: 25,
-                height: 25,
+                width: 30,
+                height: 30,
                 fit: BoxFit.contain,
                 color: Colors.white,
               ),
