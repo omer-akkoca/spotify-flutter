@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/presentation/screens/auth/signup_or_signin_screen.dart';
 import 'package:spotify/presentation/view_models/choose_mode_cubit.dart';
 import 'package:spotify/presentation/widgets/basic_app_button.dart';
 import 'package:spotify/presentation/widgets/safe_area_bottom_space.dart';
@@ -72,7 +73,8 @@ class ChooseModeScreen extends StatelessWidget {
   }
 
   Widget _buildThemeIcon(BuildContext context, String icon, String title) {
-    final ThemeMode mode = title == "Light Mode" ? ThemeMode.light : ThemeMode.dark;
+    final ThemeMode mode =
+        title == "Light Mode" ? ThemeMode.light : ThemeMode.dark;
     return Column(
       children: [
         GestureDetector(
@@ -115,6 +117,14 @@ class ChooseModeScreen extends StatelessWidget {
   }
 
   Widget _buildBasicButton(BuildContext context) {
-    return BasicAppButton(onPressed: () {}, title: "Continue");
+    return BasicAppButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SignupOrSigninScreen()),
+        );
+      },
+      title: "Continue",
+    );
   }
 }
