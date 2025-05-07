@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/presentation/screens/auth/sign_up_screen.dart';
 import 'package:spotify/presentation/widgets/app_bar.dart';
 import 'package:spotify/presentation/widgets/basic_app_button.dart';
 import 'package:spotify/presentation/widgets/svg_asset.dart';
@@ -45,7 +46,14 @@ class SignupOrSigninScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: BasicAppButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreen(),
+                              ),
+                            );
+                          },
                           title: "Register",
                         ),
                       ),
@@ -58,7 +66,10 @@ class SignupOrSigninScreen extends StatelessWidget {
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: context.isDarkMode ? Colors.white : Colors.black,
+                              color:
+                                  context.isDarkMode
+                                      ? Colors.white
+                                      : Colors.black,
                             ),
                           ),
                         ),
