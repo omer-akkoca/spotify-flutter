@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/core/configs/assets/app_images.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
-import 'package:spotify/presentation/screens/auth/sign_in_screen.dart';
+import 'package:spotify/presentation/screens/auth/sign_up_screen.dart';
 import 'package:spotify/presentation/widgets/app_bar.dart';
 import 'package:spotify/presentation/widgets/basic_app_button.dart';
 import 'package:spotify/presentation/widgets/safe_area_bottom_space.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +25,15 @@ class SignUpScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Spacer(),
-            _buildRegisterText(),
+            _buildSignInText(),
             const SizedBox(height: 50),
-            _buildFullNameField(context),
-            const SizedBox(height: 20),
             _buildEMailField(context),
             const SizedBox(height: 20),
             _buildPasswordField(context),
             const SizedBox(height: 20),
-            BasicAppButton(onPressed: () {}, title: "Create Account"),
+            BasicAppButton(onPressed: () {}, title: "Sign In"),
             Spacer(flex: 2),
-            _buildSignInText(context),
+            _buildRegisterText(context),
             SafeAreaBottomSpace(bottom: 20),
           ],
         ),
@@ -43,21 +41,14 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRegisterText() {
+  Widget _buildSignInText() {
     return Text(
-      "Register",
+      "Sign In",
       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
       textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildFullNameField(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "Full Name",
-      ).applyDefaults(Theme.of(context).inputDecorationTheme),
-    );
-  }
 
   Widget _buildEMailField(BuildContext context) {
     return TextField(
@@ -75,13 +66,13 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSignInText(BuildContext context) {
+  Widget _buildRegisterText(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "Do you have an account?",
+          "Not a member?",
           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
         ),
         TextButton(
@@ -89,12 +80,12 @@ class SignUpScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => SignInScreen(),
+                builder: (context) => SignUpScreen(),
               ),
             );
           },
           child: Text(
-            "Sign In!",
+            "Register Now!",
             style: TextStyle(
               color: AppColors.primary,
               fontWeight: FontWeight.bold,
